@@ -47,3 +47,13 @@ class MockRepository: RepositoryInterface {
     }
 }
 ```
+
+Inspecting recordings is easy:
+
+```swift
+let mock = MockRepository()
+mock.store(1)
+mock.store(2)
+XCTAssertEqual(2, mock._timesCalled_store)
+XCTAssertEqual([1, 2], mock_values_store)
+```
