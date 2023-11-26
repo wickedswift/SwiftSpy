@@ -10,17 +10,17 @@ private protocol Interface {
 @Spy
 private class Subject: Interface {
     var stringProperty: String {
-        _returnAndRecord("string")
+        _returnAndRecord_stringProperty("string")
     }
     func intReturning() -> Int {
-        _returnAndRecord(1)
+        _returnAndRecord_intReturning(1)
     }
     func voidReturning() {
         _returnAndRecord_voidReturning()
     }
     func asynchronous() async -> [String] {
         await MainActor.run {
-            _returnAndRecord(["string 1", "string 2"])
+            _returnAndRecord_asynchronous(["string 1", "string 2"])
         }
     }
 }

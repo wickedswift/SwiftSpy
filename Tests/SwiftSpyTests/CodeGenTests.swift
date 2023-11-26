@@ -35,6 +35,7 @@ final class CodeGenTests: XCTestCase {
             protocol TestInterface {
                 var stringConstantProperty: String { get }
                 func intReturning() -> Int
+                func anotherIntReturning() -> Int
             }
             struct CustomType {
                 let boolProperty: Bool
@@ -52,6 +53,10 @@ final class CodeGenTests: XCTestCase {
                     return 1
                 }
             
+                func anotherIntReturning() -> Int {
+                    return 2
+                }
+            
                 func voidReturning() {
                     // Do stuff
                 }
@@ -61,6 +66,7 @@ final class CodeGenTests: XCTestCase {
             protocol TestInterface {
                 var stringConstantProperty: String { get }
                 func intReturning() -> Int
+                func anotherIntReturning() -> Int
             }
             struct CustomType {
                 let boolProperty: Bool
@@ -76,27 +82,37 @@ final class CodeGenTests: XCTestCase {
                 func intReturning() -> Int {
                     return 1
                 }
+            
+                func anotherIntReturning() -> Int {
+                    return 2
+                }
 
                 func voidReturning() {
                     // Do stuff
                 }
 
-                func _returnAndRecord(_ customPropertyValue: CustomType) -> CustomType {
+                func _returnAndRecord_customProperty(_ value: CustomType) -> CustomType {
                     _timesCalled_customProperty += 1
-                    _values_customProperty.append(customPropertyValue)
-                    return customPropertyValue
+                    _values_customProperty.append(value)
+                    return value
                 }
 
-                func _returnAndRecord(_ stringConstantPropertyValue: String) -> String {
+                func _returnAndRecord_stringConstantProperty(_ value: String) -> String {
                     _timesCalled_stringConstantProperty += 1
-                    _values_stringConstantProperty.append(stringConstantPropertyValue)
-                    return stringConstantPropertyValue
+                    _values_stringConstantProperty.append(value)
+                    return value
                 }
             
-                func _returnAndRecord(_ intReturningValue: Int) -> Int {
+                func _returnAndRecord_intReturning(_ value: Int) -> Int {
                     _timesCalled_intReturning += 1
-                    _values_intReturning.append(intReturningValue)
-                    return intReturningValue
+                    _values_intReturning.append(value)
+                    return value
+                }
+            
+                func _returnAndRecord_anotherIntReturning(_ value: Int) -> Int {
+                    _timesCalled_anotherIntReturning += 1
+                    _values_anotherIntReturning.append(value)
+                    return value
                 }
             
                 func _returnAndRecord_voidReturning() {
@@ -109,6 +125,8 @@ final class CodeGenTests: XCTestCase {
 
                 private (set) var _timesCalled_intReturning = 0
 
+                private (set) var _timesCalled_anotherIntReturning = 0
+
                 private (set) var _timesCalled_voidReturning = 0
             
                 private (set) var _values_customProperty: [CustomType] = []
@@ -116,6 +134,8 @@ final class CodeGenTests: XCTestCase {
                 private (set) var _values_stringConstantProperty: [String] = []
 
                 private (set) var _values_intReturning: [Int] = []
+
+                private (set) var _values_anotherIntReturning: [Int] = []
             }
             """,
             macros: testMacros

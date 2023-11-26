@@ -16,10 +16,10 @@ struct SpyDeclarationMapper {
     func mapReturnAndRecord(name: String, returnType: String?) -> DeclSyntax {
         if let returnType {
             return """
-            func _returnAndRecord(_ \(raw: name)Value: \(raw: returnType)) -> \(raw: returnType) {
+            func _returnAndRecord_\(raw: name)(_ value: \(raw: returnType)) -> \(raw: returnType) {
                 _timesCalled_\(raw: name) += 1
-                _values_\(raw: name).append(\(raw: name)Value)
-                return \(raw: name)Value
+                _values_\(raw: name).append(value)
+                return value
             }
             """
         } else {
